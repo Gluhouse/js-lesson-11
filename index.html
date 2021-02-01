@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="style.css
+    "
+    />
+  </head>
+  <body>
+    <main class="page">
+      <div class="darker"></div>
+      <div class="page__wrapper">
+        <div class="card" id="toDoCard">
+          <p>TO DO</p>
+          <div class="tasks">
+            <div class="task">
+              <h2 class="task__name">Test Name</h2>
+              <button class="btn__progress"></button>
+              <button class="btn__edit"></button>
+              <button class="btn__delete"></button>
+              <p class="task__desc">Test desc</p>
+            </div>
+          </div>
+          <button id="addTaskBtn">
+            <div class="cross"></div>
+            Add another task
+          </button>
+        </div>
+        <div class="card" id="inProgressCard">
+          <p>IN PROGRESS</p>
+          <div class="tasks"></div>
+        </div>
+        <div class="card" id="doneCard">
+          <p>DONE</p>
+          <div class="tasks"></div>
+        </div>
+        <div class="card" id="deletedCard">
+          <p>DELETED</p>
+          <div class="tasks"></div>
+        </div>
+      </div>
+      <form id="addWindow">
+        <label>
+          Name of the task
+          <input type="text" class="input-name" />
+        </label>
+        <label>
+          Description of the task
+          <input type="text" class="input-desc" />
+        </label>
+        <button class="confirm__btn">V</button>
+        <button class="close__btn">X</button>
+      </form>
+      <form id="editWindow">
+        <label>
+          Name of the task
+          <input type="text" class="input-name" />
+        </label>
+        <label>
+          Description of the task
+          <input type="text" class="input-desc" />
+        </label>
+        <button class="confirm__btn">V</button>
+        <button class="close__btn">X</button>
+      </form>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>

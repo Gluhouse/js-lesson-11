@@ -1,0 +1,186 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+input {
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.page {
+}
+.page__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.card {
+  background-color: lightgray;
+  margin: 1rem;
+  width: 20%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card > p {
+  margin: 1rem;
+  color: black;
+}
+.cross {
+  width: 1rem;
+  height: 1rem;
+  background-image: url(./images/plus.png);
+  background-size: 100%;
+  display: flex;
+  margin-right: 1rem;
+  color: black;
+}
+
+#addTaskBtn {
+  display: flex;
+  color: black;
+
+  margin: 1rem;
+}
+
+.task {
+  background-color: grey;
+  margin: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.task__name {
+  width: 70%;
+  margin: 1rem 0 1rem 1rem;
+}
+
+.task__desc {
+  width: 70%;
+  margin: 1rem 0 1rem 1rem;
+}
+
+.task > button {
+  margin-top: 8px;
+}
+
+.btn__progress {
+  width: 16px;
+  height: 16px;
+  background-image: url(./images/check-mark.png);
+  background-size: 100%;
+}
+.btn__edit {
+  width: 16px;
+  height: 16px;
+  background-image: url(./images/edit.png);
+  background-size: 100%;
+}
+.btn__delete {
+  width: 16px;
+  height: 16px;
+  background-image: url(./images/cancel.png);
+  background-size: 100%;
+  margin-right: 10px;
+}
+
+#addWindow {
+  position: absolute;
+  margin: 0 auto;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba($color: black, $alpha: 0.7);
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+#addWindow > label {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: whitesmoke;
+}
+
+#addWindow > input {
+  border-radius: 5px;
+}
+
+.input-name {
+  width: 100%;
+}
+
+.input-desc {
+  width: 100%;
+}
+
+.close__btn {
+  color: red;
+}
+
+.darker {
+  display: none;
+  background: #000;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.confirm__btn {
+  color: lime;
+  margin-right: 2rem;
+}
+
+#editWindow {
+  position: absolute;
+  margin: 0 auto;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba($color: black, $alpha: 0.7);
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+#editWindow > label {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: whitesmoke;
+}
+
+#editWindow > input {
+  border-radius: 5px;
+}
+
+.lime {
+  color: lime;
+  margin: 0 auto;
+}
