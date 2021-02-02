@@ -41,9 +41,6 @@ input {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 .card > p {
@@ -69,6 +66,7 @@ input {
   display: flex;
   color: black;
   margin: 1rem;
+  margin-top: auto;
 }
 
 .task {
@@ -216,6 +214,15 @@ input {
 
 .lime {
   color: lime;
-  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.red {
+  color: red;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 /*# sourceMappingURL=style.css.map */

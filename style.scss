@@ -32,7 +32,6 @@ input {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .card > p {
@@ -54,6 +53,7 @@ input {
   color: black;
 
   margin: 1rem;
+  margin-top: auto;
 }
 
 .task {
@@ -182,5 +182,14 @@ input {
 
 .lime {
   color: lime;
-  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.red {
+  color: red;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }

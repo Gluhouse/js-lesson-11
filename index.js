@@ -13,8 +13,8 @@ const app = () => {
     openWindow(event, "#addWindow", list.toDo);
   });
 
-  document.addEventListener("click", (event) => {
-    if (event.target.closest(".card")) {
+  document.querySelectorAll(".card").forEach((item) => {
+    item.addEventListener("click", (event) => {
       if (event.target.closest("#toDoCard")) {
         if (event.target.closest(".btn__progress")) {
           nextStep(
@@ -45,15 +45,18 @@ const app = () => {
         openWindow(event, "#editWindow", list[listItem], index);
       }
 
-      if (event.target.closest(".btn__")) {
-      }
-    }
-    console.log(list);
-  });
+      if (event.target.closest(".btn__delete")) {
+        let listItem = findListItem(event);
+        let index = findItemIndex(event, list[listItem]);
 
-  darkerPage.addEventListener("click", (event) => {
-    closeWindow(event, "#addWindow");
-    closeWindow(event, "#editWindow");
+        deleteItem(event, "#deletedCard", list[listItem], index, list.deleted);
+      }
+    });
+
+    darkerPage.addEventListener("click", (event) => {
+      closeWindow(event, "#addWindow");
+      closeWindow(event, "#editWindow");
+    });
   });
 };
 
@@ -72,22 +75,26 @@ const openWindow = (event, windowName, listItem, index) => {
 
   let cardName = event.target.closest(".card").id;
 
-  console.log(cardName, listItem);
-
   if (windowName === "#addWindow") {
     inputName.value = "";
     inputDesc.value = "";
 
-    confirmBtn.addEventListener("click", (event) => {
-      confirmInput(event, listItem, false, 0, cardName);
-    });
+    confirmBtn.addEventListener(
+      "click",
+      (confirmEvent = (event) => {
+        confirmInput(event, listItem, false, 0, cardName);
+      })
+    );
   } else if (windowName === "#editWindow") {
     inputName.value = listItem[index].name;
     inputDesc.value = listItem[index].desc;
 
-    confirmBtn.addEventListener("click", (event) => {
-      confirmInput(event, listItem, true, index, cardName);
-    });
+    confirmBtn.addEventListener(
+      "click",
+      (confirmEvent = (event) => {
+        confirmInput(event, listItem, true, index, cardName);
+      })
+    );
   }
 };
 
@@ -95,11 +102,13 @@ const closeWindow = (event, windowName) => {
   event.preventDefault();
   document.querySelector(windowName).style.display = "none";
   document.querySelector(".darker").style.display = "none";
+  document
+    .querySelectorAll(".confirm__btn")
+    .forEach((item) => item.removeEventListener("click", confirmEvent));
 };
 
 const confirmInput = (event, listItem, isEdit = false, index, cardName) => {
   event.preventDefault();
-  debugger;
   let window = event.target.closest("form");
   let nameInput = window.querySelector(".input-name").value;
   let descInput = window.querySelector(".input-desc").value;
@@ -121,39 +130,65 @@ const drawCard = (cardName, listItem) => {
 
   tasks.innerHTML = "";
 
-  console.log(cardName);
+  // if (cardName === "#toDoCard") {
+  //   listItem.forEach((elem) => {
+  //     tasks.innerHTML += `
+  //         <div class="task">
+  //         <h2 class="task__name">${elem.name}</h2>
+  //         <button class="btn__progress"></button>
+  //         <button class="btn__edit"></button>
+  //         <button class="btn__delete"></button>
+  //         <p class="task__desc">${elem.desc}</p>
+  //       </div>`;
+  //   });
+  // } else if (cardName === "#inProgressCard") {
+  //   listItem.forEach((elem) => {
+  //     tasks.innerHTML += `
+  //       <div class="task">
+  //       <h2 class="task__name">${elem.name}</h2>
+  //       <button class="btn__progress"></button>
+  //       <button class="btn__edit"></button>
+  //       <button class="btn__delete"></button>
+  //       <p class="task__desc">${elem.desc}</p>
+  //     </div>`;
+  //   });
+  // } else {
+  //   listItem.forEach((elem) => {
+  //     tasks.innerHTML += `
+  //       <div class="task">
+  //       <h2 class="task__name">${elem.name}</h2>
+  //       <p class="task__desc">${elem.desc}</p>
+  //       <span class="lime">COMPLETED</span>
+  //     </div>`;
+  //   });
+  // }
 
-  if (cardName === "#toDoCard") {
-    listItem.forEach((elem) => {
-      tasks.innerHTML += `
+  listItem.forEach((elem) => {
+    tasks.innerHTML += `
           <div class="task">
           <h2 class="task__name">${elem.name}</h2>
-          <button class="btn__progress"></button>
-          <button class="btn__edit"></button>
-          <button class="btn__delete"></button>
+          ${
+            cardName === "#toDoCard" || cardName === "#inProgressCard"
+              ? `
+              <button class="btn__progress"></button>
+              <button class="btn__edit"></button>
+              <button class="btn__delete"></button>`
+              : ``
+          }
           <p class="task__desc">${elem.desc}</p>
+          ${
+            cardName === "#doneCard"
+              ? `<span class="lime">COMPLETED</span>`
+              : ``
+          }
+          ${
+            cardName === "#deletedCard"
+              ? `<span class="red">DELETED</span>`
+              : ``
+          }
+          
         </div>`;
-    });
-  } else if (cardName === "#inProgressCard") {
-    listItem.forEach((elem) => {
-      tasks.innerHTML += `
-        <div class="task">
-        <h2 class="task__name">${elem.name}</h2>
-        <button class="btn__progress"></button>
-        <button class="btn__delete"></button>
-        <p class="task__desc">${elem.desc}</p>
-      </div>`;
-    });
-  } else {
-    listItem.forEach((elem) => {
-      tasks.innerHTML += `
-        <div class="task">
-        <h2 class="task__name">${elem.name}</h2>
-        <p class="task__desc">${elem.desc}</p>
-        <span class="lime">COMPLETED</span>
-      </div>`;
-    });
-  }
+  });
 };
 
 const nextStep = (
@@ -175,7 +210,6 @@ const nextStep = (
 
   nextListItem.push(tempList.pop());
 
-  console.log(currentCardName);
   drawCard(currentCardName, currentListItem);
   drawCard(nextCardName, nextListItem);
 };
@@ -197,6 +231,16 @@ const findItemIndex = (event, listItem) => {
     (item) => item.name === name && item.desc === desc
   );
   return index;
+};
+
+const deleteItem = (event, deleteCard, listItem, index, deletedList) => {
+  let currentCard = event.target.closest(".card").id;
+
+  let tempListItem = listItem.splice(index, 1);
+  deletedList.push(tempListItem.pop());
+
+  drawCard(deleteCard, deletedList);
+  drawCard(`#${currentCard}`, listItem);
 };
 
 app();
